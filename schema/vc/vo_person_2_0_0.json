@@ -1,15 +1,15 @@
 {
     "$id":"https://refeds.org/schemas/vc/vo_person_2_0_0.json",
     "$schema":"https://json-schema.org/draft/2020-12/schema",
-    "$comment":"This schema implements voPerson (SCHema for ACademia) version 2.0.0 (19 May 2022) - https://refeds.org/specifications/voperson - This schema is maintained by REFEDs (https://refeds.org). The mission of REFEDS (the Research and Education FEDerations group) is to be the voice that articulates the mutual needs of research and education identity federations worldwide.",
-    "title":"voPersoncredentials",
+    "$comment":"This schema implements voPerson version 2.0.0 (19 May 2022) - https://refeds.org/specifications/voperson - This schema is maintained by REFEDs (https://refeds.org). The mission of REFEDS (the Research and Education FEDerations group) is to be the voice that articulates the mutual needs of research and education identity federations worldwide.",
+    "title":"voPersonCredentials",
     "description":"Schema for verifiable credential claims describing a user in the context of voPerson",
     "type":"object",
     "properties":{
         "credentialSubject":{
             "type":"object",
             "properties":{
-                "voperson_application_u_id":{
+                "voperson_application_uid":{
                     "type":"string",
                     "oid":"1.3.6.1.4.1.25178.4.1.1",
                     "description":"voPerson Application-Specific User Identifier"
@@ -44,7 +44,7 @@
                     "oid":"1.3.6.1.4.1.25178.4.1.7",
                     "description":"voPerson Policy Agreement Indicator"
                 },
-                "voperson_so_r_id":{
+                "voperson_sor_id":{
                     "type":"string",
                     "oid":"1.3.6.1.4.1.25178.4.1.8",
                     "description":"voPerson External Identifier"

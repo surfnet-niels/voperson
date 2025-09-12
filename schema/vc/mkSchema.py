@@ -65,7 +65,7 @@ def covert_schemaname(attributeName):
       return (fixName(replace_capitals(s)))
 
 def fixName(name):
-   return name.replace("_i_d", "_id").replace("_d_n", "_dn").replace("_u_r_i", "_uri").replace("_s_m_i_m_e", "_smime")
+   return name.replace("_i_d", "_id").replace("_d_n", "_dn").replace("_u_r_i", "_uri").replace("_s_m_i_m_e", "_smime").replace("_u_id", "_uid").replace("_so_r_id", "_sor_id")
 
 def mapType(equality, multivalued = False):
    p(equality)
