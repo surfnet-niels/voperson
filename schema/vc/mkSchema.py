@@ -68,7 +68,6 @@ def fixName(name):
    return name.replace("_i_d", "_id").replace("_d_n", "_dn").replace("_u_r_i", "_uri").replace("_s_m_i_m_e", "_smime").replace("_u_id", "_uid").replace("_so_r_id", "_sor_id")
 
 def mapType(equality, multivalued = False):
-   p(equality)
    if not multivalued:
       match equality:
          case "caseExactMatch" | "caseIgnoreMatch" | "distinguishedNameMatch" | "octetStringMatch":
@@ -81,29 +80,15 @@ def mapType(equality, multivalued = False):
       return None        
 
 def main(argv):
-   schemaFile = "vo_person_2_0_0.json"
-
-   schema = { 
-      "$id": "https://refeds.org/schemas/vc/vo_person_2_0_0.json",
-      "$schema": "https://json-schema.org/draft/2020-12/schema",
-      "$comment": "This schema implements voPerson version 2.0.0 (19 May 2022) - https://refeds.org/specifications/voperson - This schema is maintained by REFEDs (https://refeds.org). The mission of REFEDS (the Research and Education FEDerations group) is to be the voice that articulates the mutual needs of research and education identity federations worldwide.",
-      "title": "voPersonCredentials",
-      "description": "Schema for verifiable credential claims describing a user in the context of voPerson",
-      "type": "object",
-      "properties": {
-         "credentialSubject": {
-            "type": "object",
-            "properties": {}
-         }
-      }
+   schemaFile = {
+      "vcdm2.0": "vo_person_2_0_0_vcdm.json",
+      "sdjwt": "vo_person_2_0_0_sdjwt.json"
    }
 
    # Generate object properties based on ldif schema,coverted to json by chatGTP
    # The resulting schac_ldif.json was added for reference
    #
    schemaJSON = loadJSON('voperson_ldif.json')
-   pj(schemaJSON)
-   
    object_props = {}
    att = schemaJSON['olcAttributeTypes']
 
@@ -125,8 +110,31 @@ def main(argv):
          case "voPersonVerifiedEmail":
             object_props[name]['type'] = "email"
 
-   schema["properties"]["credentialSubject"]["properties"] = object_props
-   write_file(schema, schemaFile, mkpath=False, overwrite=True, type='json')
+   for type,filename in schemaFile.items():
+
+      schema = { 
+         "$id": "https://refeds.org/schemas/vc/" + filename,
+         "$schema": "https://json-schema.org/draft/2020-12/schema",
+         "$comment": "This schema implements voPerson version 2.0.0 (19 May 2022) - https://refeds.org/specifications/voperson - This schema is maintained by REFEDs (https://refeds.org). The mission of REFEDS (the Research and Education FEDerations group) is to be the voice that articulates the mutual needs of research and education identity federations worldwide.",
+         "title": "voPersonCredentials",
+         "description": "Schema for verifiable credential claims describing a user in the context of voPerson",
+         "type": "object",
+         "properties": {
+            "credentialSubject": {
+               "type": "object",
+               "properties": {}
+            }
+         }
+      }
+
+      match type:
+        case "vcdm2.0":
+            schema["properties"]["credentialSubject"]["properties"] = object_props
+        case "sdjwt":
+            schema["properties"] = object_props
+
+      write_file(schema, filename, mkpath=False, overwrite=True, type='json')
+
 
 if __name__ == "__main__":
    main(sys.argv[1:])

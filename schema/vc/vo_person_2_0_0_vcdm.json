@@ -1,5 +1,5 @@
 {
-    "$id":"https://refeds.org/schemas/vc/vo_person_2_0_0.json",
+    "$id":"https://refeds.org/schemas/vc/vo_person_2_0_0_vcdm.json",
     "$schema":"https://json-schema.org/draft/2020-12/schema",
     "$comment":"This schema implements voPerson version 2.0.0 (19 May 2022) - https://refeds.org/specifications/voperson - This schema is maintained by REFEDs (https://refeds.org). The mission of REFEDS (the Research and Education FEDerations group) is to be the voice that articulates the mutual needs of research and education identity federations worldwide.",
     "title":"voPersonCredentials",
